@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 //MERKE: Vergleichs- und Verknüpfungsoperatoren nur Klassenmember wenn ausschließlich Objekte der gleichen Klasse benutzt werden
 //		 Zugriffsoperatoren sind immer Member 
@@ -18,6 +19,8 @@ public:
 
 	const char* c_str(void) const { return data_; }
 
+	int length(void) const{ return length_; }
+
 	void concat(const char *cstr);
 	void concat(const SLS_String &str);
 
@@ -27,7 +30,6 @@ public:
 	SLS_String& operator+=(const char* rhs);
 	SLS_String& operator+=(const SLS_String &rhs);
 
-	//returns '\0' if ind is out of bounce
 	const char &operator[](int ind) const;
 	char &operator[](int ind);
 
@@ -146,6 +148,39 @@ char &SLS_String::operator[](int ind){
 	return const_cast<char&>(
 		static_cast<const SLS_String&>(*this)[ind]
 		);
+}
+
+bool operator==(const SLS_String &lhs, const SLS_String &rhs){
+	
+	if (lhs.length() != rhs.length())
+		return false;
+
+	for (int i = 0; i < rhs.length(); i++){
+		if (lhs[i] != rhs[i])
+			return false;
+	}
+
+	return true;
+}
+
+bool operator==(const SLS_String &lhs, const char* rhs){
+	return lhs == SLS_String(rhs);
+}
+
+bool operator==(const char* lhs, const SLS_String &rhs){
+	return SLS_String(lhs) == rhs;
+}
+
+bool operator!=(const SLS_String &lhs, const SLS_String &rhs){
+	return !(lhs == rhs);
+}
+
+bool operator!=(const SLS_String &lhs, const char* rhs){
+	return !(lhs == rhs);
+}
+
+bool operator!=(const char* lhs, const SLS_String &rhs){
+	return !(lhs == rhs);
 }
 
 int SLS_String::getCstrLen(const char *cstr){
