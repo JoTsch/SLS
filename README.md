@@ -1,5 +1,5 @@
 # SLS
-* just practicing a bit c++ 
+* C++ static library
 * contains an sorted list which sorts it's elements automatically 
 * also contains a class to handle strings
 
