@@ -98,6 +98,69 @@ bool operator!=(const char* lhs, const SLS_String &rhs){
 	return !(lhs == rhs);
 }
 
+bool operator<(const SLS_String& lhs, const SLS_String& rhs){
+	for (int i = 0; i < std::min(lhs.length(), rhs.length()); i++){
+		if (lhs[i] < rhs[i])
+			return true;
+		else if (lhs[i] > rhs[i])
+			return false;
+	}
+
+	if (lhs.length() < rhs.length())
+		return true;
+	else
+		return false;
+}
+
+bool operator<(const SLS_String& lhs, const char* rhs){
+	return lhs < SLS_String(rhs);
+}
+
+bool operator<(const char* lhs, const SLS_String& rhs){
+	return SLS_String(lhs) < rhs;
+}
+
+bool operator<=(const SLS_String& lhs, const SLS_String& rhs){
+	if (lhs == rhs)
+		return true;
+	else if (lhs < rhs)
+		return true;
+	else
+		return false;
+}
+
+bool operator<=(const SLS_String& lhs, const char* rhs){
+	return lhs <= SLS_String(rhs);
+}
+
+bool operator<=(const char* lhs, const SLS_String& rhs){
+	return SLS_String(lhs) <= rhs;
+}
+
+bool operator>(const SLS_String& lhs, const SLS_String& rhs){
+	return !(lhs <= rhs);;
+}
+
+bool operator>(const SLS_String& lhs, const char* rhs){
+	return lhs > SLS_String(rhs);
+}
+
+bool operator>(const char* lhs, const SLS_String& rhs){
+	return SLS_String(lhs) > rhs;
+}
+
+bool operator>=(const SLS_String& lhs, const SLS_String& rhs){
+	return !(lhs < rhs);
+}
+
+bool operator>=(const SLS_String& lhs, const char* rhs){
+	return lhs >= SLS_String(rhs);
+}
+
+bool operator>=(const char* lhs, const SLS_String& rhs){
+	return SLS_String(lhs) >= rhs;
+}
+
 int SLS_String::getCstrLen(const char *cstr){
 	int len = 0;
 	while (cstr[len] != '\0'){
